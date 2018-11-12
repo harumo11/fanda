@@ -1,4 +1,4 @@
-#include "../include/String.hpp"
+#include "../include/fanda/String.hpp"
 
 std::vector<std::string> String::split(const std::string sentence, const char delimiter){
 
