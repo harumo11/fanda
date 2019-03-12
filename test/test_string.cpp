@@ -10,5 +10,9 @@ int main(int argc, char const* argv[])
 	for (auto&& e : itr ){
 		std::cout << e << std::endl;
 	}
+
+	std::cout << "-----------------------------------" << std::endl;
+	std::cout << String::get_file_extionsion("test.exe") << std::endl;
+	std::cout << String::get_file_extionsion("test.exe.so") << std::endl;
 	return 0;
 }

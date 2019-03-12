@@ -13,3 +13,11 @@ std::vector<std::string> String::split(const std::string sentence, const char de
 
 	return result;
 }
+
+std::string String::get_file_extionsion(const std::string file_name){
+
+	auto result = String::split(file_name, '.');
+	auto extension = result.back();
+	return extension;
+}
+

@@ -34,4 +34,20 @@ namespace String {
 	 *
 	 */
 	std::vector<std::string> split(const std::string sentence, const char delimiter);
+
+	/**
+	 * @brief get file extionsion (i.g. exe, so, tar, and so on)
+	 *
+	 * @param file_name file name which you want to know extension.
+	 *
+	 * @return extension name
+	 *
+	 * For example
+	 *
+	 * file name : good_file.exe
+	 * extension : exe
+	 *
+	 */
+	std::string get_file_extionsion(const std::string file_name);
+
 } // namespace String
