@@ -1,6 +1,7 @@
 #include <cstdlib>
 #include <fstream>
 #include "../include/fanda/File.hpp"
+#include "../include/fanda/String.hpp"
 
 bool File::copy(const std::string from, const std::string to){
 
@@ -115,6 +116,20 @@ std::string File::current_path(){
 	File::remove(".buf_pocketool");
 
 	return buffer;
+}
+
+unsigned int File::size(const std::string path){
+
+	std::string buffer;
+	std::string command = "du -b " + path + " > .buf_pocketool";
+
+	File::remove(".buf_pocketool");
+	std::system(command.c_str());
+	std::ifstream buffer_file(".buf_pocketool");
+	buffer_file >> buffer;
+	File::remove(".buf_pocketool");
+
+	return std::atoi(buffer.c_str());
 }
 
 std::string File::who_am_i(){

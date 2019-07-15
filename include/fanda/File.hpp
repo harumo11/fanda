@@ -74,6 +74,15 @@ namespace File {
 	std::string current_path();
 
 	/**
+	 * @brief calculate file or folder size[byte]
+	 *
+	 * @param path path which you want to know the size.
+	 *
+	 * @return size[byte] of the file or folder.
+	 */
+	unsigned int size(const std::string path);
+
+	/**
 	 * @brief get user name.
 	 *
 	 * @return current user name.

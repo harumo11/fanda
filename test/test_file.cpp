@@ -20,5 +20,6 @@ int main(int argc, char const* argv[])
 
 	std::cout << File::current_path() << std::endl;
 	std::cout << File::who_am_i() << std::endl;
+	std::cout << File::size("size.txt") << " byte" << std::endl;
 	return 0;
 }
