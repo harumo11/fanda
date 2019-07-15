@@ -7,7 +7,7 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 
-namespace Udp {
+namespace UDP {
 	/**
 	 * @brief UDP server class
 	 * A role of this class in UDP is sender.
