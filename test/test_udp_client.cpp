@@ -3,7 +3,7 @@
 
 int main(int argc, char const* argv[])
 {
-	Udp::Client client;
+	UDP::Client client;
 
 	for (int i = 0; i < 100; i++) {
 		std::cout << client.receive() << std::endl;

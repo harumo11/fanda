@@ -4,7 +4,7 @@
 
 int main(int argc, char const* argv[])
 {
-	Udp::Server server;
+	UDP::Server server;
 
 	for (int i = 0; i < 100; i++) {
 		std::string msgs = "hello\t" + std::to_string(i);
