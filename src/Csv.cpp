@@ -1,0 +1,110 @@
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include "../include/fanda/Csv.hpp"
+#include "../include/fanda/String.hpp"
+
+namespace CSV{
+
+	double Data::get_as_double(){
+		try {
+			return std::stod(this->value);
+		} catch (std::exception e) {
+			std::cout << "[ fanda Error ] std::string can not convert to double, please use get_as_string()" << std::endl;
+		}
+		std::exit(-1);
+	}
+
+	std::string Data::get_as_string(){
+		return this->value;
+	}
+
+	int Data::get_as_int(){
+		try {
+			return std::stoi(this->value);
+		} catch (std::exception e) {
+			std::cout << "[ fanda Error ] std::string can not convert to int, please use get_as_string()" << std::endl;
+		}
+		std::exit(-1);
+	}
+
+	void Data::set(const std::string value){
+		this->value = value;
+	}
+
+
+	CsvFile::CsvFile(){
+	}
+
+	CsvFile::CsvFile(const std::string file_path){
+		// get file path 
+		this->file_path = file_path;
+
+		// read csv file
+		this->reload();
+	}
+
+	bool CsvFile::open(const std::string file_path){
+		// get file path
+		this->file_path = file_path;
+
+		// read csv file and return open or not open
+		return this->reload();
+	}
+
+	bool CsvFile::reload(){
+		//read csv file with file_path
+		std::ifstream csv_file(this->file_path);
+		if (!csv_file) {
+			std::cout << "[ Fanda Error ] CSV file is could not open" << std::endl;
+			return false;
+		}
+
+		std::string one_line;
+		while (std::getline(csv_file, one_line)) {
+			// split one lien of csv file to each single word
+			auto each_words = String::split(one_line, ',');
+			for (auto&& e : each_words){
+				std::cout << e << " ";
+			}
+			std::cout << std::endl;
+
+			// prepare each one lien of table
+			std::vector<Data> one_lien_data;
+			Data data_; 
+			for (auto&& e : each_words){
+				data_.set(e);
+				one_lien_data.push_back(data_);
+			}
+
+			// set one line to table
+			this->table.push_back(one_lien_data);
+		}
+
+		return true;
+	}
+
+	Data CsvFile::operator()(const unsigned int collumn, const unsigned int raw){
+		return this->table[collumn][raw];
+	}
+
+	int CsvFile::collumn_size(){
+		return this->table.size();
+	}
+
+	int CsvFile::raw_size(){
+		return this->table.front().size();
+	}
+
+	void CsvFile::print(){
+
+		for (auto&& line : this->table){
+			for (auto&& e : line){
+				std::cout << e.get_as_string() << " , ";
+			}
+			std::cout << std::endl;
+		}
+	}
+
+}
+
