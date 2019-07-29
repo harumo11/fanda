@@ -64,10 +64,6 @@ namespace CSV{
 		while (std::getline(csv_file, one_line)) {
 			// split one lien of csv file to each single word
 			auto each_words = String::split(one_line, ',');
-			for (auto&& e : each_words){
-				std::cout << e << " ";
-			}
-			std::cout << std::endl;
 
 			// prepare each one lien of table
 			std::vector<Data> one_lien_data;
@@ -85,11 +81,21 @@ namespace CSV{
 	}
 
 	Data CsvFile::operator()(const unsigned int collumn, const unsigned int raw){
-		return this->table[collumn][raw];
+		if (collumn >= this->collumn_size()) {
+			std::cout << "[ fanda ERROR ] You try to read over the collumn range of CSV file. collumn size should be under " << this->collumn_size() << std::endl;
+			return this->table[0][0];
+		}
+		else if (raw >= this->raw_size()){
+			std::cout << "[ fanda ERROR ] You try to read over the raw range of CSV file. raw size should be under " << this->raw_size() << std::endl;
+			return this->table[0][0];
+		}
+		else {
+			return this->table[collumn][raw];
+		}
 	}
 
 	int CsvFile::collumn_size(){
-		return this->table.size();
+		return this->table.size()-1;
 	}
 
 	int CsvFile::raw_size(){
@@ -98,9 +104,10 @@ namespace CSV{
 
 	void CsvFile::print(){
 
+		int counter = 0;
 		for (auto&& line : this->table){
 			for (auto&& e : line){
-				std::cout << e.get_as_string() << " , ";
+				std::cout << "[ " << counter++ << " ] " << e.get_as_string() << " , ";
 			}
 			std::cout << std::endl;
 		}

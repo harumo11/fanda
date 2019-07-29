@@ -13,6 +13,7 @@ add_library(fanda
 	${SRC_DIR}/File.cpp
 	${SRC_DIR}/String.cpp
 	${SRC_DIR}/Zip.cpp
+	${SRC_DIR}/Csv.cpp
 	)
 
 install(TARGETS fanda
