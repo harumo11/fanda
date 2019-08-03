@@ -7,12 +7,7 @@
 namespace CSV{
 
 	double Data::get_as_double(){
-		try {
-			return std::stod(this->value);
-		} catch (std::exception e) {
-			std::cout << "[ fanda Error ] std::string can not convert to double, please use get_as_string(). exit." << std::endl;
-		}
-		std::exit(-1);
+		return std::stod(this->value);
 	}
 
 	std::string Data::get_as_string(){
@@ -20,12 +15,7 @@ namespace CSV{
 	}
 
 	int Data::get_as_int(){
-		try {
-			return std::stoi(this->value);
-		} catch (std::exception e) {
-			std::cout << "[ fanda Error ] std::string can not convert to int, please use get_as_string(). exit." << std::endl;
-		}
-		std::exit(-1);
+		return std::stoi(this->value);
 	}
 
 	void Data::set(const std::string value){
