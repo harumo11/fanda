@@ -100,6 +100,13 @@ class CsvFile {
 		 */
 		void print();
 
+		/**
+		 * @brief If CSV file opend successflly, return true. Otherwize, false.
+		 *
+		 * @return The CSV file could open : true, Could not open : false
+		 */
+		bool is_open();
+
 	private:
 
 		/**
@@ -111,6 +118,11 @@ class CsvFile {
 		 * @brief A path to the CSV file
 		 */
 		std::string file_path;
+
+		/**
+		 * @brief Flag whether the file could open or not
+		 */
+		bool did_open = false;
 };
 }
 

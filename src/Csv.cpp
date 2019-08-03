@@ -34,6 +34,10 @@ namespace CSV{
 		this->reload();
 	}
 
+	bool CsvFile::is_open(){
+		return this->did_open;
+	}
+
 	bool CsvFile::open(const std::string file_path){
 		// get file path
 		this->file_path = file_path;
@@ -48,6 +52,9 @@ namespace CSV{
 		if (!csv_file) {
 			std::cout << "[ Fanda Error ] CSV file is could not open" << std::endl;
 			return false;
+		}
+		else {
+			this->did_open = true;
 		}
 
 		std::string one_line;

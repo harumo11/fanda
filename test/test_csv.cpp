@@ -1,20 +1,27 @@
+#define BOOST_TEST_MODULE CSV MODULE
+#include <boost/test/included/unit_test.hpp>
+
 #include "../include/fanda/Csv.hpp"
 
-int main(int argc, char const* argv[])
+BOOST_AUTO_TEST_CASE(open_csv)
 {
-	std::cout << "TEST of CSV " << std::endl;
-
 	CSV::CsvFile csv("./test.csv");
-	std::cout << "raw size " << csv.raw_size() << std::endl;
-	std::cout << "collumn size " << csv.collumn_size() << std::endl;
+	BOOST_TEST(csv.is_open());
+}
 
-	std::cout << "0, 0 double " << csv(0,0).get_as_double() << std::endl;;
-	std::cout << "0, 0 int " << csv(0,0).get_as_int() << std::endl;
-	std::cout << "0, 0 string " << csv(0,0).get_as_string() << std::endl;
+BOOST_AUTO_TEST_CASE(size)
+{
+	CSV::CsvFile csv("./test.csv");
+	BOOST_TEST(csv.raw_size() == 3); 
+	BOOST_TEST(csv.collumn_size() == 10);
+	BOOST_TEST(csv.raw_size() != 5); 
+	BOOST_TEST(csv.collumn_size() != 5);
+}
 
-	std::cout << "1, 1 string " << csv(1,1).get_as_string() << std::endl;
-	std::cout << "1, 1 double " << csv(1,1).get_as_double() << std::endl;;
-	std::cout << "1, 1 int " << csv(1,1).get_as_int() << std::endl;
-
-	return 0;
+BOOST_AUTO_TEST_CASE(get_value)
+{
+	CSV::CsvFile csv("./test.csv");
+	BOOST_TEST(csv(0,0).get_as_string() == "1");
+	BOOST_TEST(csv(0,0).get_as_int() == 1);
+	BOOST_TEST(csv(0,0).get_as_double() == 1.0);
 }
