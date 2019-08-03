@@ -10,7 +10,7 @@ namespace CSV{
 		try {
 			return std::stod(this->value);
 		} catch (std::exception e) {
-			std::cout << "[ fanda Error ] std::string can not convert to double, please use get_as_string()" << std::endl;
+			std::cout << "[ fanda Error ] std::string can not convert to double, please use get_as_string(). exit." << std::endl;
 		}
 		std::exit(-1);
 	}
@@ -23,7 +23,7 @@ namespace CSV{
 		try {
 			return std::stoi(this->value);
 		} catch (std::exception e) {
-			std::cout << "[ fanda Error ] std::string can not convert to int, please use get_as_string()" << std::endl;
+			std::cout << "[ fanda Error ] std::string can not convert to int, please use get_as_string(). exit." << std::endl;
 		}
 		std::exit(-1);
 	}
@@ -95,7 +95,7 @@ namespace CSV{
 	}
 
 	int CsvFile::collumn_size(){
-		return this->table.size()-1;
+		return this->table.size();
 	}
 
 	int CsvFile::raw_size(){
