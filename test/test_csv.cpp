@@ -25,3 +25,11 @@ BOOST_AUTO_TEST_CASE(get_value)
 	BOOST_TEST(csv(0,0).get_as_int() == 1);
 	BOOST_TEST(csv(0,0).get_as_double() == 1.0);
 }
+
+BOOST_AUTO_TEST_CASE(add)
+{
+	CSV::CsvFile csv1("./test.csv");
+	CSV::CsvFile csv2("./test.csv");
+	csv1.add(csv2);
+	csv1.print();
+}

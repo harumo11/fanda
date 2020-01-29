@@ -107,6 +107,14 @@ class CsvFile {
 		 */
 		bool is_open();
 
+		/**
+		 * @brief add one csv file to this csv file.
+		 *
+		 * @param another_csv_file The csv file which will be added to this csv file.
+		 *
+		 */
+		void add(const CsvFile another_csv_file);
+
 	private:
 
 		/**

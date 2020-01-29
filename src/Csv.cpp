@@ -110,5 +110,8 @@ namespace CSV{
 		}
 	}
 
+	void CsvFile::add(CsvFile another_csv_file){
+		this->table.insert(this->table.end(), another_csv_file.table.begin(), another_csv_file.table.end());
+	}
 }
 

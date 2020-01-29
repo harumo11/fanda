@@ -176,7 +176,7 @@ int Client::send(const std::string message){
 
 	int result_write = write(this->server_sock, message.c_str(), message.size());
 	if (result_write <= 0) {
-		perror("Send");
+		perror("Sending message failed");
 	}
 	return result_write;
 }
@@ -194,7 +194,7 @@ std::string Client::receive(){
 	int result_read = read(this->server_sock, receive_buff, sizeof(receive_buff));
 
 	if (result_read <= 0) {
-		perror("Receive");
+		perror("Receiving message failed");
 		close(this->server_sock);
 	}
 
