@@ -100,11 +100,10 @@ namespace CSV{
 	}
 
 	void CsvFile::print(){
-
-		int counter = 0;
-		for (auto&& line : this->table){
-			for (auto&& e : line){
-				std::cout << "[ " << counter++ << " ] " << e.get_as_string() << " , ";
+		for (int i = 0; i < this->table.size(); i++) {
+			std::cout << "[\t" << i << "\t]\t";
+			for (auto e : this->table.at(i)){
+				std::cout << e.get_as_string() << "\t";
 			}
 			std::cout << std::endl;
 		}
