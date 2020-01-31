@@ -26,10 +26,26 @@ BOOST_AUTO_TEST_CASE(get_value)
 	BOOST_TEST(csv(0,0).get_as_double() == 1.0);
 }
 
-BOOST_AUTO_TEST_CASE(add)
+BOOST_AUTO_TEST_CASE(connect)
 {
 	CSV::CsvFile csv1("./test.csv");
 	CSV::CsvFile csv2("./test.csv");
-	csv1.add(csv2);
+	csv1.connect(csv2);
 	csv1.print();
+}
+
+BOOST_AUTO_TEST_CASE(add0)
+{
+	CSV::CsvFile csv("./test.csv");
+	std::vector<std::string> vec = {"a", "b", "c"};
+	csv.add(vec);
+	csv.print();
+}
+
+BOOST_AUTO_TEST_CASE(add1)
+{
+	CSV::CsvFile csv;
+	std::vector<std::string> vec = {"a", "b", "c"};
+	csv.add(vec);
+	csv.print();
 }

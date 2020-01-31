@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <random>
 #include "../include/fanda/Csv.hpp"
 #include "../include/fanda/String.hpp"
 
@@ -101,16 +102,86 @@ namespace CSV{
 
 	void CsvFile::print(){
 		for (int i = 0; i < this->table.size(); i++) {
-			std::cout << "[\t" << i << "\t]\t";
+			std::cout << "[ " << i << " ] ";
 			for (auto e : this->table.at(i)){
-				std::cout << e.get_as_string() << "\t";
+				std::cout << e.get_as_string() << ", ";
 			}
 			std::cout << std::endl;
 		}
 	}
 
-	void CsvFile::add(CsvFile another_csv_file){
+	void CsvFile::connect(CsvFile another_csv_file){
 		this->table.insert(this->table.end(), another_csv_file.table.begin(), another_csv_file.table.end());
 	}
+
+	void CsvFile::add(const std::vector<std::string> new_line){
+		//もし何もデータが入っていなかったとき，与えられたデータを新しく加える．
+		//もしくは，新しいデータのサイズが，CsvFileの列数と同じかどうかチェック
+		if (this->collumn_size() == 0 || new_line.size() == this->raw_size()) {
+			std::vector<CSV::Data> new_line_;	//新たに加える１行
+			CSV::Data new_data_;				//新たに加える１行の１データ
+			for (auto e : new_line){
+				new_data_.set(e);	//CSV::Data形式に与えられたデータを変換
+				new_line_.push_back(new_data_);	//std::vector<CSV::Data>にデータを追加
+			}
+			this->table.push_back(new_line_);	//テーブルに新しい行を追加
+		}
+		else {
+			//新しいデータのサイズがCsvFileの列数と同じでなかったとき
+			std::cout << "[error] in CsvFile::add(). added vector data size is not same as CsvFile raw size. Please check added vector size." << std::endl;
+		}
+	}
+
+	void CsvFile::add(const std::vector<double> new_line){
+		//もし何もデータが入っていなかったとき，与えられたデータを新しく加える．
+		//もしくは新しいデータのサイズが，CsvFileの列数と同じかどうかチェック
+		if (this->collumn_size() == 0 || new_line.size() == this->raw_size()) {
+			std::vector<CSV::Data> new_line_;	//新たに加える１行
+			CSV::Data new_data_;				//新たに加える１行の１データ
+			for (auto e : new_line){
+				new_data_.set(std::to_string(e));
+				new_line_.push_back(new_data_);
+			}
+			this->table.push_back(new_line_);	//テーブルに新しい行を追加
+		}
+		else {
+			//新しいデータのサイズがCsvFileの列数と同じでなかったとき
+			std::cout << "[error] in CsvFile::add(). added vector data size is not same as CsvFile raw size. Please check added vector size." << std::endl;
+		}
+	}
+
+	void CsvFile::add(const std::vector<int> new_line){
+		//もし何もデータが入っていなかったとき，与えられたデータを新しく加える．
+		//もしくは新しいデータのサイズが，CsvFileの列数と同じかどうかチェック
+		if (this->collumn_size() == 0 || new_line.size() == this->raw_size()) {
+			std::vector<CSV::Data> new_line_;	//新たに加える１行
+			CSV::Data new_data_;				//新たに加える１行の１データ
+			for (auto e : new_line){
+				new_data_.set(std::to_string(e));
+				new_line_.push_back(new_data_);
+			}
+			this->table.push_back(new_line_);	//テーブルに新しい行を追加
+		}
+		else {
+			//新しいデータのサイズがCsvFileの列数と同じでなかったとき
+			std::cout << "[error] in CsvFile::add(). added vector data size is not same as CsvFile raw size. Please check added vector size." << std::endl;
+		}
+	}
+
+
+//	CsvFile CsvFile::get_random_sampling(const unsigned int sampling_size){
+//		std::random_device rnd;
+//		std::mt19937 mt(rnd());
+//		std::uniform_int_distribution<int> dist(0, this->collumn_size());	//0からテーブルの行数の範囲の乱数を作成する準備
+//
+//		CsvFile new_csv;
+//		for (int i = 0; i < sampling_size; i++) {
+//			//乱数を生成
+//			const int random_itr = dist(mt);
+//		}
+//
+//		//乱数のイテレータに従って新しいCsvFileを作成
+//
+//	}
 }
 

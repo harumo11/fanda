@@ -108,12 +108,30 @@ class CsvFile {
 		bool is_open();
 
 		/**
-		 * @brief add one csv file to this csv file.
+		 * @brief connect another csv file to this csv file.
 		 *
-		 * @param another_csv_file The csv file which will be added to this csv file.
+		 * @param another_csv_file The csv file which will be concatenate to this csv file.
 		 *
 		 */
-		void add(const CsvFile another_csv_file);
+		void connect(const CsvFile another_csv_file);
+
+		/**
+		 * @brief add new line to this CsvFile. new line will be a part of this CsvFile.
+		 *
+		 * @param new_line new line will be added to this CsvFile.
+		 */
+		void add(const std::vector<std::string> new_line);
+		void add(const std::vector<double> new_line);
+		void add(const std::vector<int> new_line);
+
+		/**
+		 * @brief do random sampling and get those data as new CsvFile.
+		 *
+		 * @param sample_size data size of new CsvFile or how many times does random sampling.
+		 *
+		 * @return new CsvFile which is the result of random sampling.
+		 */
+		CsvFile get_random_sampling(const unsigned int sampling_size);
 
 	private:
 
