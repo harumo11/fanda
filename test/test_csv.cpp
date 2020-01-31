@@ -49,3 +49,10 @@ BOOST_AUTO_TEST_CASE(add1)
 	csv.add(vec);
 	csv.print();
 }
+
+BOOST_AUTO_TEST_CASE(random_sampling)
+{
+	CSV::CsvFile csv("./test.csv");
+	auto new_csv = csv.get_random_sampling(2);
+	new_csv.print();
+}

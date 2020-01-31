@@ -169,19 +169,20 @@ namespace CSV{
 	}
 
 
-//	CsvFile CsvFile::get_random_sampling(const unsigned int sampling_size){
-//		std::random_device rnd;
-//		std::mt19937 mt(rnd());
-//		std::uniform_int_distribution<int> dist(0, this->collumn_size());	//0からテーブルの行数の範囲の乱数を作成する準備
-//
-//		CsvFile new_csv;
-//		for (int i = 0; i < sampling_size; i++) {
-//			//乱数を生成
-//			const int random_itr = dist(mt);
-//		}
-//
-//		//乱数のイテレータに従って新しいCsvFileを作成
-//
-//	}
+	CsvFile CsvFile::get_random_sampling(const unsigned int sampling_size){
+		// 乱数の準備
+		std::random_device rnd;
+		std::mt19937 mt(rnd());
+		std::uniform_int_distribution<int> dist(0, this->collumn_size()-1);	//0からテーブルの行数の範囲の乱数を作成する準備
+
+		CsvFile new_csv;	//返却用のCsvテーブル
+		for (int i = 0; i < sampling_size; i++) {
+			//乱数を生成
+			const int random_itr = dist(mt);
+			new_csv.table.push_back(this->table.at(random_itr));
+		}
+
+		return new_csv;
+	}
 }
 
