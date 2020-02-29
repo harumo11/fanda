@@ -120,9 +120,9 @@ class CsvFile {
 		 *
 		 * @param new_line new line will be added to this CsvFile.
 		 */
-		void add(const std::vector<std::string> new_line);
-		void add(const std::vector<double> new_line);
-		void add(const std::vector<int> new_line);
+		bool add(const std::vector<std::string> new_line);
+		bool add(const std::vector<double> new_line);
+		bool add(const std::vector<int> new_line);
 
 		/**
 		 * @brief do random sampling and get those data as new CsvFile.

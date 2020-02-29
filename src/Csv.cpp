@@ -115,7 +115,7 @@ namespace CSV{
 		this->table.insert(this->table.end(), another_csv_file.table.begin(), another_csv_file.table.end());
 	}
 
-	void CsvFile::add(const std::vector<std::string> new_line){
+	bool CsvFile::add(const std::vector<std::string> new_line){
 		//もし何もデータが入っていなかったとき，与えられたデータを新しく加える．
 		//もしくは，新しいデータのサイズが，CsvFileの列数と同じかどうかチェック
 		if (this->collumn_size() == 0 || new_line.size() == this->raw_size()) {
@@ -126,14 +126,16 @@ namespace CSV{
 				new_line_.push_back(new_data_);	//std::vector<CSV::Data>にデータを追加
 			}
 			this->table.push_back(new_line_);	//テーブルに新しい行を追加
+			return true;
 		}
 		else {
 			//新しいデータのサイズがCsvFileの列数と同じでなかったとき
-			std::cout << "[error] in CsvFile::add(). added vector data size is not same as CsvFile raw size. Please check added vector size." << std::endl;
+			std::cout << "[error] in CsvFile::add(). added std::vector data size is not same as CsvFile raw size. Please check added vector size." << std::endl;
+			return false;
 		}
 	}
 
-	void CsvFile::add(const std::vector<double> new_line){
+	bool CsvFile::add(const std::vector<double> new_line){
 		//もし何もデータが入っていなかったとき，与えられたデータを新しく加える．
 		//もしくは新しいデータのサイズが，CsvFileの列数と同じかどうかチェック
 		if (this->collumn_size() == 0 || new_line.size() == this->raw_size()) {
@@ -144,14 +146,16 @@ namespace CSV{
 				new_line_.push_back(new_data_);
 			}
 			this->table.push_back(new_line_);	//テーブルに新しい行を追加
+			return true;
 		}
 		else {
 			//新しいデータのサイズがCsvFileの列数と同じでなかったとき
 			std::cout << "[error] in CsvFile::add(). added vector data size is not same as CsvFile raw size. Please check added vector size." << std::endl;
+			return false;
 		}
 	}
 
-	void CsvFile::add(const std::vector<int> new_line){
+	bool CsvFile::add(const std::vector<int> new_line){
 		//もし何もデータが入っていなかったとき，与えられたデータを新しく加える．
 		//もしくは新しいデータのサイズが，CsvFileの列数と同じかどうかチェック
 		if (this->collumn_size() == 0 || new_line.size() == this->raw_size()) {
@@ -162,10 +166,12 @@ namespace CSV{
 				new_line_.push_back(new_data_);
 			}
 			this->table.push_back(new_line_);	//テーブルに新しい行を追加
+			return true;
 		}
 		else {
 			//新しいデータのサイズがCsvFileの列数と同じでなかったとき
 			std::cout << "[error] in CsvFile::add(). added vector data size is not same as CsvFile raw size. Please check added vector size." << std::endl;
+			return false;
 		}
 	}
 
