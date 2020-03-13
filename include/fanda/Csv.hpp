@@ -127,12 +127,11 @@ class CsvFile {
 		/**
 		 * @brief do random sampling and get those data as new CsvFile.
 		 *
-		 * @param sample_size data size of new CsvFile or how many times does random sampling.
+		 * @param sample_size How many line should be return. Returned Csv is composed of continued line. Default size is 1.
 		 *
 		 * @return new CsvFile which is the result of random sampling.
 		 */
-		CsvFile get_random_sampling(const unsigned int sampling_size);
-
+		CsvFile get_random_sampling(const unsigned int sampling_size = 1);
 
 
 	private:

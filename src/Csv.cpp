@@ -180,13 +180,20 @@ namespace CSV{
 		// 乱数の準備
 		std::random_device rnd;
 		std::mt19937 mt(rnd());
-		std::uniform_int_distribution<int> dist(0, this->collumn_size()-1);	//0からテーブルの行数の範囲の乱数を作成する準備
-
 		CsvFile new_csv;	//返却用のCsvテーブル
+		
+		//condition check
+		//sampling_sizeが全体のサイズより小さい場合は，何も入っていないCsvFileを返す
+		if (sampling_size > this->collumn_size()) {
+			std::cout << "[error] in CsvFile::get_random_sampling(). the requested sampling data size is begger than table size. The emplty CsvFile is returned. " << std::endl;
+			return new_csv;
+		}
+
+		std::uniform_int_distribution<int> dist(0, this->collumn_size()-sampling_size);	//0からテーブルの行数の範囲の乱数を作成する準備
+		const unsigned int ramdom_collum_index = dist(mt);
+
 		for (int i = 0; i < sampling_size; i++) {
-			//乱数を生成
-			const int random_itr = dist(mt);
-			new_csv.table.push_back(this->table.at(random_itr));
+			new_csv.table.push_back(this->table.at(ramdom_collum_index + i));
 		}
 
 		return new_csv;
