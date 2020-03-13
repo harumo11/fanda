@@ -12,9 +12,9 @@ BOOST_AUTO_TEST_CASE(open_csv)
 BOOST_AUTO_TEST_CASE(size)
 {
 	CSV::CsvFile csv("./test.csv");
-	BOOST_TEST(csv.raw_size() == 3); 
+	BOOST_TEST(csv.row_size() == 3); 
 	BOOST_TEST(csv.collumn_size() == 10);
-	BOOST_TEST(csv.raw_size() != 5); 
+	BOOST_TEST(csv.row_size() != 5); 
 	BOOST_TEST(csv.collumn_size() != 5);
 }
 
@@ -99,3 +99,4 @@ BOOST_AUTO_TEST_CASE(set_data2)
 	csv.add(v1);
 	BOOST_TEST(csv(0,0).get_as_int() == 1);
 }
+

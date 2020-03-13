@@ -78,17 +78,17 @@ namespace CSV{
 		return true;
 	}
 
-	Data CsvFile::operator()(const unsigned int collumn, const unsigned int raw){
+	Data CsvFile::operator()(const unsigned int collumn, const unsigned int row){
 		if (collumn >= this->collumn_size()) {
 			std::cout << "[ fanda ERROR ] You try to read over the collumn range of CSV file. collumn size should be under " << this->collumn_size() << std::endl;
 			return this->table[0][0];
 		}
-		else if (raw >= this->raw_size()){
-			std::cout << "[ fanda ERROR ] You try to read over the raw range of CSV file. raw size should be under " << this->raw_size() << std::endl;
+		else if (row >= this->row_size()){
+			std::cout << "[ fanda ERROR ] You try to read over the row range of CSV file. row size should be under " << this->row_size() << std::endl;
 			return this->table[0][0];
 		}
 		else {
-			return this->table[collumn][raw];
+			return this->table[collumn][row];
 		}
 	}
 
@@ -96,7 +96,7 @@ namespace CSV{
 		return this->table.size();
 	}
 
-	int CsvFile::raw_size(){
+	int CsvFile::row_size(){
 		return this->table.front().size();
 	}
 
@@ -118,7 +118,7 @@ namespace CSV{
 	bool CsvFile::add(const std::vector<std::string> new_line){
 		//もし何もデータが入っていなかったとき，与えられたデータを新しく加える．
 		//もしくは，新しいデータのサイズが，CsvFileの列数と同じかどうかチェック
-		if (this->collumn_size() == 0 || new_line.size() == this->raw_size()) {
+		if (this->collumn_size() == 0 || new_line.size() == this->row_size()) {
 			std::vector<CSV::Data> new_line_;	//新たに加える１行
 			CSV::Data new_data_;				//新たに加える１行の１データ
 			for (auto e : new_line){
@@ -130,7 +130,7 @@ namespace CSV{
 		}
 		else {
 			//新しいデータのサイズがCsvFileの列数と同じでなかったとき
-			std::cout << "[error] in CsvFile::add(). added std::vector data size is not same as CsvFile raw size. Please check added vector size." << std::endl;
+			std::cout << "[error] in CsvFile::add(). added std::vector data size is not same as CsvFile row size. Please check added vector size." << std::endl;
 			return false;
 		}
 	}
@@ -138,7 +138,7 @@ namespace CSV{
 	bool CsvFile::add(const std::vector<double> new_line){
 		//もし何もデータが入っていなかったとき，与えられたデータを新しく加える．
 		//もしくは新しいデータのサイズが，CsvFileの列数と同じかどうかチェック
-		if (this->collumn_size() == 0 || new_line.size() == this->raw_size()) {
+		if (this->collumn_size() == 0 || new_line.size() == this->row_size()) {
 			std::vector<CSV::Data> new_line_;	//新たに加える１行
 			CSV::Data new_data_;				//新たに加える１行の１データ
 			for (auto e : new_line){
@@ -150,7 +150,7 @@ namespace CSV{
 		}
 		else {
 			//新しいデータのサイズがCsvFileの列数と同じでなかったとき
-			std::cout << "[error] in CsvFile::add(). added vector data size is not same as CsvFile raw size. Please check added vector size." << std::endl;
+			std::cout << "[error] in CsvFile::add(). added vector data size is not same as CsvFile row size. Please check added vector size." << std::endl;
 			return false;
 		}
 	}
@@ -158,7 +158,7 @@ namespace CSV{
 	bool CsvFile::add(const std::vector<int> new_line){
 		//もし何もデータが入っていなかったとき，与えられたデータを新しく加える．
 		//もしくは新しいデータのサイズが，CsvFileの列数と同じかどうかチェック
-		if (this->collumn_size() == 0 || new_line.size() == this->raw_size()) {
+		if (this->collumn_size() == 0 || new_line.size() == this->row_size()) {
 			std::vector<CSV::Data> new_line_;	//新たに加える１行
 			CSV::Data new_data_;				//新たに加える１行の１データ
 			for (auto e : new_line){
@@ -170,7 +170,7 @@ namespace CSV{
 		}
 		else {
 			//新しいデータのサイズがCsvFileの列数と同じでなかったとき
-			std::cout << "[error] in CsvFile::add(). added vector data size is not same as CsvFile raw size. Please check added vector size." << std::endl;
+			std::cout << "[error] in CsvFile::add(). added vector data size is not same as CsvFile row size. Please check added vector size." << std::endl;
 			return false;
 		}
 	}
