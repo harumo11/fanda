@@ -108,6 +108,7 @@ namespace CSV{
 				std::cout << e.get_as_string() << ", ";
 			}
 			std::cout << std::endl;
+			std::cout.flush();
 		}
 	}
 
