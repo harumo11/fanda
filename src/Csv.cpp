@@ -100,7 +100,6 @@ namespace CSV{
 		return this->table.front().size();
 	}
 
-	//FIXME ,, となって歯抜けになることがある．実際は歯抜けになっていない
 	void CsvFile::print(){
 		for (int i = 0; i < this->table.size(); i++) {
 			std::cout << "[ " << i << " ] ";

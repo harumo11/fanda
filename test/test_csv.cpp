@@ -100,3 +100,12 @@ BOOST_AUTO_TEST_CASE(set_data2)
 	BOOST_TEST(csv(0,0).get_as_int() == 1);
 }
 
+BOOST_AUTO_TEST_CASE(display)
+{
+	CSV::CsvFile csv;
+	for (int i = 0; i < 1000; i++) {
+		std::vector<int> vec = {1,2,3,4,5,6};
+		csv.add(vec);
+	}
+	csv.print();
+}
