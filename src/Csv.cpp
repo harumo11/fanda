@@ -60,27 +60,27 @@ namespace CSV{
 
 		std::string one_line;
 		while (std::getline(csv_file, one_line)) {
-			// split one lien of csv file to each single word
+			// split one line of csv file to each single word
 			auto each_words = String::split(one_line, ',');
 
-			// prepare each one lien of table
-			std::vector<Data> one_lien_data;
+			// prepare each one line of table
+			std::vector<Data> one_line_data;
 			Data data_; 
 			for (auto&& e : each_words){
 				data_.set(e);
-				one_lien_data.push_back(data_);
+				one_line_data.push_back(data_);
 			}
 
 			// set one line to table
-			this->table.push_back(one_lien_data);
+			this->table.push_back(one_line_data);
 		}
 
 		return true;
 	}
 
-	Data CsvFile::operator()(const unsigned int collumn, const unsigned int row){
-		if (collumn >= this->collumn_size()) {
-			std::cout << "[ fanda ERROR ] The range over is occured. You tried to read beyond the column range of the CSV file. collumn index must be under " << this->collumn_size() << std::endl;
+	Data CsvFile::operator()(const unsigned int column, const unsigned int row){
+		if (column >= this->column_size()) {
+			std::cout << "[ fanda ERROR ] The range over is occured. You tried to read beyond the column range of the CSV file. column index must be under " << this->column_size() << std::endl;
 			return this->table[0][0];
 		}
 		else if (row >= this->row_size()){
@@ -88,11 +88,11 @@ namespace CSV{
 			return this->table[0][0];
 		}
 		else {
-			return this->table[collumn][row];
+			return this->table[column][row];
 		}
 	}
 
-	int CsvFile::collumn_size(){
+	int CsvFile::column_size(){
 		return this->table.size();
 	}
 
@@ -118,10 +118,10 @@ namespace CSV{
 	bool CsvFile::add(const std::vector<std::string> new_line){
 		//もし何もデータが入っていなかったとき，与えられたデータを新しく加える．
 		//もしくは，新しいデータのサイズが，CsvFileの列数と同じかどうかチェック
-		if (this->collumn_size() == 0 || new_line.size() == this->row_size()) {
+		if (this->column_size() == 0 || new_line.size() == this->row_size()) {
 			std::vector<CSV::Data> new_line_;	//新たに加える１行
 			CSV::Data new_data_;				//新たに加える１行の１データ
-			for (auto e : new_line){
+			for (auto& e : new_line){
 				new_data_.set(e);	//CSV::Data形式に与えられたデータを変換
 				new_line_.push_back(new_data_);	//std::vector<CSV::Data>にデータを追加
 			}
@@ -130,7 +130,7 @@ namespace CSV{
 		}
 		else {
 			//新しいデータのサイズがCsvFileの列数と同じでなかったとき
-			std::cout << "[error] in CsvFile::add(). added std::vector data size is not same as CsvFile row size. Please check added vector size." << std::endl;
+			std::cout << "[Error fanda] in CsvFile::add(). added std::vector data size is not same as CsvFile row size. Please check added vector size." << std::endl;
 			return false;
 		}
 	}
@@ -138,7 +138,7 @@ namespace CSV{
 	bool CsvFile::add(const std::vector<double> new_line){
 		//もし何もデータが入っていなかったとき，与えられたデータを新しく加える．
 		//もしくは新しいデータのサイズが，CsvFileの列数と同じかどうかチェック
-		if (this->collumn_size() == 0 || new_line.size() == this->row_size()) {
+		if (this->column_size() == 0 || new_line.size() == this->row_size()) {
 			std::vector<CSV::Data> new_line_;	//新たに加える１行
 			CSV::Data new_data_;				//新たに加える１行の１データ
 			for (auto e : new_line){
@@ -158,7 +158,7 @@ namespace CSV{
 	bool CsvFile::add(const std::vector<int> new_line){
 		//もし何もデータが入っていなかったとき，与えられたデータを新しく加える．
 		//もしくは新しいデータのサイズが，CsvFileの列数と同じかどうかチェック
-		if (this->collumn_size() == 0 || new_line.size() == this->row_size()) {
+		if (this->column_size() == 0 || new_line.size() == this->row_size()) {
 			std::vector<CSV::Data> new_line_;	//新たに加える１行
 			CSV::Data new_data_;				//新たに加える１行の１データ
 			for (auto e : new_line){
@@ -184,12 +184,12 @@ namespace CSV{
 		
 		//condition check
 		//sampling_sizeが全体のサイズより小さい場合は，何も入っていないCsvFileを返す
-		if (sampling_size > this->collumn_size()) {
-			std::cout << "[error] in CsvFile::get_random_sampling(). the requested sampling data size is begger than table size. The emplty CsvFile is returned. " << std::endl;
+		if (sampling_size > this->column_size()) {
+			std::cout << "[Error] in CsvFile::get_random_sampling(). the requested sampling data size is begger than table size. The emplty CsvFile is returned. " << std::endl;
 			return new_csv;
 		}
 
-		std::uniform_int_distribution<int> dist(0, this->collumn_size()-sampling_size);	//0からテーブルの行数の範囲の乱数を作成する準備
+		std::uniform_int_distribution<int> dist(0, this->column_size()-sampling_size);	//0からテーブルの行数の範囲の乱数を作成する準備
 		const unsigned int ramdom_collum_index = dist(mt);
 
 		for (int i = 0; i < sampling_size; i++) {

@@ -74,19 +74,19 @@ class CsvFile {
 		/**
 		 * @brief Get the Data which CsvFile has.
 		 *
-		 * @param collumn The number of Collumn
+		 * @param column The number of column
 		 * @param row The number of row
 		 *
-		 * @return Data locate in (collumn, row)
+		 * @return Data locate in (column, row)
 		 */
-		Data operator()(const unsigned int collumn, const unsigned int row);
+		Data operator()(const unsigned int column, const unsigned int row);
 
 		/**
-		 * @brief Get the collumn size of CSV file
+		 * @brief Get the column size of CSV file
 		 *
-		 * @return The collumn size of CSV file
+		 * @return The column size of CSV file
 		 */
-		int collumn_size();
+		int column_size();
 
 		/**
 		 * @brief Get the row size of CSV file
