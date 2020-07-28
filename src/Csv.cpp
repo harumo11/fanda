@@ -51,7 +51,7 @@ namespace CSV{
 		//read csv file with file_path
 		std::ifstream csv_file(this->file_path);
 		if (!csv_file) {
-			std::cout << "[ Fanda Error ] CSV file is could not open" << std::endl;
+			std::cout << "[ Fanda Error ] CSV file is could not open.\t" << this->file_path << " is realy exist?" << std::endl;
 			return false;
 		}
 		else {
@@ -80,11 +80,11 @@ namespace CSV{
 
 	Data CsvFile::operator()(const unsigned int collumn, const unsigned int row){
 		if (collumn >= this->collumn_size()) {
-			std::cout << "[ fanda ERROR ] You try to read over the collumn range of CSV file. collumn size should be under " << this->collumn_size() << std::endl;
+			std::cout << "[ fanda ERROR ] The range over is occured. You tried to read beyond the column range of the CSV file. collumn index must be under " << this->collumn_size() << std::endl;
 			return this->table[0][0];
 		}
 		else if (row >= this->row_size()){
-			std::cout << "[ fanda ERROR ] You try to read over the row range of CSV file. row size should be under " << this->row_size() << std::endl;
+			std::cout << "[ fanda ERROR ] The range over is occured. You tried to read beyond the row range of CSV file. row index must be under " << this->row_size() << std::endl;
 			return this->table[0][0];
 		}
 		else {
