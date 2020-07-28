@@ -78,7 +78,7 @@ namespace CSV{
 		return true;
 	}
 
-	Data CsvFile::operator()(const unsigned int column, const unsigned int row){
+	Data CsvFile::operator()(const unsigned int row, const unsigned int column) {
 		if (column >= this->column_size()) {
 			std::cout << "[ fanda ERROR ] The range over is occured. You tried to read beyond the column range of the CSV file. column index must be under " << this->column_size() << std::endl;
 			return this->table[0][0];
@@ -88,16 +88,16 @@ namespace CSV{
 			return this->table[0][0];
 		}
 		else {
-			return this->table[column][row];
+			return this->table[row][column];
 		}
 	}
 
 	int CsvFile::column_size(){
-		return this->table.size();
+		return this->table.front().size();
 	}
 
 	int CsvFile::row_size(){
-		return this->table.front().size();
+		return this->table.size();
 	}
 
 	void CsvFile::print(){
@@ -118,7 +118,7 @@ namespace CSV{
 	bool CsvFile::add(const std::vector<std::string> new_line){
 		//もし何もデータが入っていなかったとき，与えられたデータを新しく加える．
 		//もしくは，新しいデータのサイズが，CsvFileの列数と同じかどうかチェック
-		if (this->column_size() == 0 || new_line.size() == this->row_size()) {
+		if (this->table.size() == 0 || new_line.size() == this->column_size()) {
 			std::vector<CSV::Data> new_line_;	//新たに加える１行
 			CSV::Data new_data_;				//新たに加える１行の１データ
 			for (auto& e : new_line){
@@ -130,7 +130,7 @@ namespace CSV{
 		}
 		else {
 			//新しいデータのサイズがCsvFileの列数と同じでなかったとき
-			std::cout << "[Error fanda] in CsvFile::add(). added std::vector data size is not same as CsvFile row size. Please check added vector size." << std::endl;
+			std::cout << "[Error fanda] in CsvFile::add(). added std::vector data size is not same as CsvFile column size. Please check added vector size." << std::endl;
 			return false;
 		}
 	}
@@ -138,7 +138,7 @@ namespace CSV{
 	bool CsvFile::add(const std::vector<double> new_line){
 		//もし何もデータが入っていなかったとき，与えられたデータを新しく加える．
 		//もしくは新しいデータのサイズが，CsvFileの列数と同じかどうかチェック
-		if (this->column_size() == 0 || new_line.size() == this->row_size()) {
+		if (this->table.size() == 0 || new_line.size() == this->column_size()) {
 			std::vector<CSV::Data> new_line_;	//新たに加える１行
 			CSV::Data new_data_;				//新たに加える１行の１データ
 			for (auto e : new_line){
@@ -150,7 +150,7 @@ namespace CSV{
 		}
 		else {
 			//新しいデータのサイズがCsvFileの列数と同じでなかったとき
-			std::cout << "[error] in CsvFile::add(). added vector data size is not same as CsvFile row size. Please check added vector size." << std::endl;
+			std::cout << "[error] in CsvFile::add(). added vector data size is not same as CsvFile column size. Please check added vector size." << std::endl;
 			return false;
 		}
 	}
@@ -158,7 +158,7 @@ namespace CSV{
 	bool CsvFile::add(const std::vector<int> new_line){
 		//もし何もデータが入っていなかったとき，与えられたデータを新しく加える．
 		//もしくは新しいデータのサイズが，CsvFileの列数と同じかどうかチェック
-		if (this->column_size() == 0 || new_line.size() == this->row_size()) {
+		if (this->table.size() == 0 || new_line.size() == this->column_size()) {
 			std::vector<CSV::Data> new_line_;	//新たに加える１行
 			CSV::Data new_data_;				//新たに加える１行の１データ
 			for (auto e : new_line){
@@ -184,16 +184,16 @@ namespace CSV{
 		
 		//condition check
 		//sampling_sizeが全体のサイズより小さい場合は，何も入っていないCsvFileを返す
-		if (sampling_size > this->column_size()) {
+		if (sampling_size > this->row_size()) {
 			std::cout << "[Error] in CsvFile::get_random_sampling(). the requested sampling data size is begger than table size. The emplty CsvFile is returned. " << std::endl;
 			return new_csv;
 		}
 
-		std::uniform_int_distribution<int> dist(0, this->column_size()-sampling_size);	//0からテーブルの行数の範囲の乱数を作成する準備
-		const unsigned int ramdom_collum_index = dist(mt);
+		std::uniform_int_distribution<int> dist(0, this->row_size()-sampling_size);	//0からテーブルの行数の範囲の乱数を作成する準備
+		const unsigned int random_row_index = dist(mt);
 
 		for (int i = 0; i < sampling_size; i++) {
-			new_csv.table.push_back(this->table.at(ramdom_collum_index + i));
+			new_csv.table.at(i) = this->table.at(random_row_index + 1);
 		}
 
 		return new_csv;
