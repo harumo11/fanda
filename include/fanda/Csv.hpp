@@ -77,9 +77,9 @@ class CsvFile {
 		 * @param column The number of column
 		 * @param row The number of row
 		 *
-		 * @return Data locate in (column, row)
+		 * @return A mutable data locate in (column, row)
 		 */
-		Data operator()(const unsigned int column, const unsigned int row);
+		Data& operator()(const unsigned int column, const unsigned int row);
 
 		/**
 		 * @brief Get the column size of CSV file
@@ -129,7 +129,41 @@ class CsvFile {
 		 *
 		 * @param sample_size How many line should be return. Returned Csv is composed of continued line. Default size is 1.
 		 *
-		 * @return new CsvFile which is the result of random sampling.
+		 * @return new CsvFile which is the result of random sampling. If sampling_size > 1, returned new CSV is done sampling with serial row in the original CSV file.
+		 *
+		 *
+		 * **Original CSV**
+		 *
+		 * |0|a|alpha|
+		 * |1|b|beta|
+		 * |2|c|gamma|
+		 * 
+		 * Do sampling with sampling size 2
+		 *
+		 * **New CSV**
+		 * |0|a|alpha|
+		 * |1|b|beta|
+		 * 
+		 * OR
+		 *
+		 * |1|b|beta|
+		 * |2|c|gamma|
+		 *
+		 * If you want to get completely randamized new csv as below,
+		 *
+		 * |0|a|alpha|
+		 * |2|c|gamma|
+		 *
+		 * write the code as below.
+		 *
+		 * ```
+		 * CSV::CsvFile original_csv("excellent.csv");
+		 * CSV::CsvFile new_csv;
+		 * for (int i = 0, i < 2, i++){
+		 *     new_csv.connect(original_csv.get_random_sampling());
+		 * }
+		 * ```
+		 *
 		 */
 		CsvFile get_random_sampling(const unsigned int sampling_size = 1);
 

@@ -50,8 +50,9 @@ namespace CSV{
 	bool CsvFile::reload(){
 		//read csv file with file_path
 		std::ifstream csv_file(this->file_path);
-		if (!csv_file) {
+		if (!csv_file.is_open()) {
 			std::cout << "[ Fanda Error ] CSV file is could not open.\t" << this->file_path << " is realy exist?" << std::endl;
+			this->did_open = false;
 			return false;
 		}
 		else {
@@ -78,7 +79,7 @@ namespace CSV{
 		return true;
 	}
 
-	Data CsvFile::operator()(const unsigned int row, const unsigned int column) {
+	Data& CsvFile::operator()(const unsigned int row, const unsigned int column) {
 		if (column >= this->column_size()) {
 			std::cout << "[ fanda ERROR ] The range over is occured. You tried to read beyond the column range of the CSV file. column index must be under " << this->column_size() << std::endl;
 			return this->table[0][0];
@@ -177,26 +178,28 @@ namespace CSV{
 
 
 	CsvFile CsvFile::get_random_sampling(const unsigned int sampling_size){
+
 		// 乱数の準備
 		std::random_device rnd;
 		std::mt19937 mt(rnd());
-		CsvFile new_csv;	//返却用のCsvテーブル
+		CsvFile return_csv;	//返却用のCsvテーブル
 		
 		//condition check
 		//sampling_sizeが全体のサイズより小さい場合は，何も入っていないCsvFileを返す
 		if (sampling_size > this->row_size()) {
 			std::cout << "[Error] in CsvFile::get_random_sampling(). the requested sampling data size is begger than table size. The emplty CsvFile is returned. " << std::endl;
-			return new_csv;
+			return return_csv;
 		}
 
 		std::uniform_int_distribution<int> dist(0, this->row_size()-sampling_size);	//0からテーブルの行数の範囲の乱数を作成する準備
 		const unsigned int random_row_index = dist(mt);
 
+		//連続した行を選択する
 		for (int i = 0; i < sampling_size; i++) {
-			new_csv.table.at(i) = this->table.at(random_row_index + 1);
+			return_csv.table.push_back(this->table.at(random_row_index + i));
 		}
 
-		return new_csv;
+		return return_csv;
 	}
 }
 
