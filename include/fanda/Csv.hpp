@@ -31,9 +31,12 @@ class Data {
 		/**
 		 * @brief Change the CSV data.
 		 *
-		 * @param value You should use this function to change data.
+		 * @param value You should use this function to change data in csv file.
 		 */
+		template<typename T>
+		void set(const T value);
 		void set(const std::string value);
+		void set(const char* value);
 
 	private:
 		std::string value = "";

@@ -19,8 +19,16 @@ namespace CSV{
 		return std::stoi(this->value);
 	}
 
+	template<typename T>
+	void Data::set(const T value){
+		this->value = std::to_string(value);
+	}
 	void Data::set(const std::string value){
 		this->value = value;
+	}
+	void Data::set(const char* value){
+		std::string value_string = value;
+		this->value = value_string;
 	}
 
 
