@@ -80,7 +80,7 @@ namespace CSV{
 				one_line_data.push_back(data_);
 			}
 
-			// set one line to table
+			// add one line to table
 			this->table.push_back(one_line_data);
 		}
 
@@ -120,11 +120,11 @@ namespace CSV{
 		}
 	}
 
-	void CsvFile::connect(CsvFile another_csv_file){
-		this->table.insert(this->table.end(), another_csv_file.table.begin(), another_csv_file.table.end());
+	void CsvFile::connect(CsvFile another_csv){
+		this->table.insert(this->table.end(), another_csv.table.begin(), another_csv.table.end());
 	}
 
-	bool CsvFile::add(const std::vector<std::string> new_line){
+	bool CsvFile::add_line(const std::vector<std::string> new_line){
 		//もし何もデータが入っていなかったとき，与えられたデータを新しく加える．
 		//もしくは，新しいデータのサイズが，CsvFileの列数と同じかどうかチェック
 		if (this->table.size() == 0 || new_line.size() == this->column_size()) {
@@ -139,12 +139,12 @@ namespace CSV{
 		}
 		else {
 			//新しいデータのサイズがCsvFileの列数と同じでなかったとき
-			std::cout << "[Error fanda] in CsvFile::add(). added std::vector data size is not same as CsvFile column size. Please check added vector size." << std::endl;
+			std::cout << "[Error fanda] in CsvFile::add_line(). added std::vector data size is not same as CsvFile column size. Please check added vector size." << std::endl;
 			return false;
 		}
 	}
 
-	bool CsvFile::add(const std::vector<double> new_line){
+	bool CsvFile::add_line(const std::vector<int> new_line){
 		//もし何もデータが入っていなかったとき，与えられたデータを新しく加える．
 		//もしくは新しいデータのサイズが，CsvFileの列数と同じかどうかチェック
 		if (this->table.size() == 0 || new_line.size() == this->column_size()) {
@@ -159,12 +159,12 @@ namespace CSV{
 		}
 		else {
 			//新しいデータのサイズがCsvFileの列数と同じでなかったとき
-			std::cout << "[error] in CsvFile::add(). added vector data size is not same as CsvFile column size. Please check added vector size." << std::endl;
+			std::cout << "[error] in CsvFile::add_line(). added vector data size is not same as CsvFile column size. Please check added vector size." << std::endl;
 			return false;
 		}
 	}
 
-	bool CsvFile::add(const std::vector<int> new_line){
+	bool CsvFile::add_line(const std::vector<double> new_line){
 		//もし何もデータが入っていなかったとき，与えられたデータを新しく加える．
 		//もしくは新しいデータのサイズが，CsvFileの列数と同じかどうかチェック
 		if (this->table.size() == 0 || new_line.size() == this->column_size()) {
@@ -179,8 +179,47 @@ namespace CSV{
 		}
 		else {
 			//新しいデータのサイズがCsvFileの列数と同じでなかったとき
-			std::cout << "[error] in CsvFile::add(). added vector data size is not same as CsvFile row size. Please check added vector size." << std::endl;
+			std::cout << "[error] in CsvFile::add_line(). added vector data size is not same as CsvFile row size. Please check added vector size." << std::endl;
 			return false;
+		}
+	}
+
+	bool CsvFile::save(const std::string file_name){
+		std::ofstream file_(file_name);
+		if (!file_.is_open()) {
+			std::cout << "[error] in CsvFile::save(), can't open the file." << std::endl;
+			return false;
+		}
+		else {
+			for(auto&& row : this->table){
+				for(auto&& value : row){
+					file_ << value.get_as_string() << ",";
+				}
+				file_ << std::endl;
+			}
+			return true;
+		}
+	}
+
+	bool CsvFile::save(const std::string file_name, const std::vector<std::string> header){
+		std::ofstream file_(file_name);
+		if (!file_.is_open()) {
+			std::cout << "[error] in CsvFile::save(), can't open the file." << std::endl;
+			return false;
+		}
+		else {
+			for(auto&& e : header){
+				file_ << e << ","; 
+			}
+			file_ << std::endl;
+
+			for(auto&& row : this->table){
+				for(auto&& value : row){
+					file_ << value.get_as_string() << ",";
+				}
+				file_ << std::endl;
+			}
+			return true;
 		}
 	}
 

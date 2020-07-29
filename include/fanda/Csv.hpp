@@ -116,16 +116,16 @@ class CsvFile {
 		 * @param another_csv_file The csv file which will be concatenate to this csv file.
 		 *
 		 */
-		void connect(const CsvFile another_csv_file);
+		void connect(const CsvFile another_csv);
 
 		/**
-		 * @brief add new line to this CsvFile. new line will be a part of this CsvFile.
+		 * @brief add new row to this CsvFile. new line will be a part of this CsvFile.
 		 *
-		 * @param new_line new line will be added to this CsvFile.
+		 * @param new_line new row will be added to the CsvFile.
 		 */
-		bool add(const std::vector<std::string> new_line);
-		bool add(const std::vector<double> new_line);
-		bool add(const std::vector<int> new_line);
+		bool add_line(const std::vector<double> new_line);
+		bool add_line(const std::vector<int> new_line);
+		bool add_line(const std::vector<std::string> new_line);
 
 		/**
 		 * @brief do random sampling and get those data as new CsvFile.
@@ -169,6 +169,25 @@ class CsvFile {
 		 *
 		 */
 		CsvFile get_random_sampling(const unsigned int sampling_size = 1);
+
+		/**
+		 * @brief Save the csv file with specified name.
+		 *
+		 * @param file_name New csv file name like "gread_data.csv".
+		 *
+		 * @return If the file is saved successfully, return true. Otherwise retuen false.
+		 */
+		bool save(const std::string file_name);
+
+		/**
+		 * @brief Save the csv file with specified name.
+		 *
+		 * @param file_name New csv file name like "gread_data.csv".
+		 * @param header A header of csv file like {"name", "id", "number"}.
+		 *
+		 * @return If the file is saved successfully, return true. Otherwise retuen false.
+		 */
+		bool save(const std::string file_name, const std::vector<std::string> header);
 
 
 	private:
