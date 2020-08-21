@@ -13,7 +13,7 @@ public:
 		 *
 		 * ```
 		 * CSV::CsvFile csv_file("log.csv");
-		 * //value of row = 1 and collumn = 1 is specified. CSV::CsvFile::() operator return CSV::Data type.
+		 * //value of row = 1 and column = 1 is specified. CSV::CsvFile::() operator return CSV::Data type.
 		 * double val = csv_file(1,1).get_as_double();
 		 * ```
 		 *
@@ -27,7 +27,7 @@ public:
 		 *
 		 * ```
 		 * CSV::CsvFile csv_file("log.csv");
-		 * // value of row = 1 and collumn = 1 is specified. CSV::CsvFile::() operator return CSV::Data type.
+		 * // value of row = 1 and column = 1 is specified. CSV::CsvFile::() operator return CSV::Data type.
 		 * std::string val = csv_file(1,1).get_as_string();
 		 * ```
 		 *
@@ -41,7 +41,7 @@ public:
 		 *
 		 * ```
 		 * CSV::CsvFile csv_file("log.csv");
-		 * // value of row = 1 and collumn = 1 is specified. CSV::CsvFile::() operator return CSV::Data type.
+		 * // value of row = 1 and column = 1 is specified. CSV::CsvFile::() operator return CSV::Data type.
 		 * int = csv_file(1,1).get_as_int();
 		 * ```
 		 *
@@ -176,13 +176,29 @@ public:
     void connect(const CsvFile another_csv);
 
     /**
-		 * @brief add new row to this CsvFile. new line will be a part of this CsvFile.
 		 *
-		 * @param new_line new row will be added to the CsvFile.
 		 */
+    /**
+	 * @brief add new row to this CsvFile. new line will be a part of this CsvFile.
+	 *
+     * @param new_line new row will be added to the CsvFile.
+	 *
+	 * @return If given data is added successfuly to CsvFile, return true. Otherwise if given new_line's collumn is not same, return false.
+	 */
     bool add_line(const std::vector<double> new_line);
     bool add_line(const std::vector<int> new_line);
     bool add_line(const std::vector<std::string> new_line);
+
+    /**
+	 * @brief remove specified line from CSV::CsvFile. 
+	 * You can speficy the column whcih you want to remove from CSV::CsvFile.
+	 *
+	 * @param column_index specify the column(line) which you want to delete.
+	 * 
+	 * @return If specifed column(line) is removed successfully, return true.
+	 *         Otherwise, specified column index is range over(column_index > CSV::CsvFile::row_size()), return false. And nothing to change in CSV::CsvFile data.
+	 */
+    bool remove_line(const unsigned int column_index);
 
     /**
 		 * @brief do random sampling and get those data as new CsvFile.
