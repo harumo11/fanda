@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <optional>
+#include <tuple>
 #include <vector>
 
 namespace CSV {
@@ -201,11 +202,8 @@ public:
     bool remove_line(const unsigned int column_index);
 
     /**
-		 * @brief do random sampling and get those data as new CsvFile.
 		 *
-		 * @param sample_size How many line should be return. Returned Csv is composed of continued line. Default size is 1.
 		 *
-		 * @return new CsvFile which is the result of random sampling. If sampling_size > 1, returned new CSV is done sampling with serial row in the original CSV file.
 		 *
 		 *
 		 * **Original CSV**
@@ -241,7 +239,14 @@ public:
 		 * ```
 		 *
 		 */
-    CsvFile get_random_sampling(const unsigned int sampling_size = 1);
+    /**
+	 * @brief do random sampling and get those data as new CsvFile.
+	 *
+	 * @param sample_size How many line should be return. Returned Csv is composed of continued line. Default size is 1.
+	 *
+	 * @return 
+	 */
+    std::tuple<CsvFile, std::vector<unsigned int>> get_random_sampling(const unsigned int sampling_size = 1);
 
     /**
 		 * @brief Save the csv file with specified name.
