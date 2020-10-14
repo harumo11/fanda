@@ -246,7 +246,7 @@ public:
 	 *
 	 * @return 
 	 */
-    std::tuple<CsvFile, std::vector<unsigned int>> get_random_sampling(const unsigned int sampling_size = 1);
+    CsvFile get_random_sampling(const unsigned int sampling_size = 1);
 
     /**
 		 * @brief Save the csv file with specified name.
